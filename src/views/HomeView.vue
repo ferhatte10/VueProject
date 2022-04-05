@@ -3,70 +3,59 @@
 
     <h1>Les Sorts :</h1>
 
-    <div>
-      <label for="ecoleSelect">Ecoles </label>
-      <select id="ecoleSelect" class="select">
-        <option value="" selected></option>
-        <option v-for="ecole in data.module.getData(this.datalist,'ecoles')" :key="ecole">
-          {{ecole}}
-        </option>
-      </select>
-    </div>
-
-    <div>
-      <label for="brancheSelect">Branches </label>
-      <select id="brancheSelect" class="select">
-        <option value="" selected></option>
-        <option v-for="branche in data.module.getData(this.datalist,'branches')" :key="branche">
-          {{branche}}
-        </option>
-      </select>
-    </div>
+    <form class="form">
 
 
-    <div>
-      <label for="level">Search by niveau :</label>
-      <select id="level" class="select">
-        <option value="" selected></option>
-        <option value='0' >Niveau 0</option>
-        <option value='1'>Niveau 1</option>
-        <option value='2'>Niveau 2</option>
-        <option value='3'>Niveau 3</option>
-        <option value='4'>Niveau 4</option>
-        <option value='5'>Niveau 5</option>
-        <option value='6'>Niveau 6</option>
-        <option value='7'>Niveau 7</option>
-        <option value='8'>Niveau 8</option>
-        <option value='9'>Niveau 9</option>
-      </select>
-    </div>
-
-
-    <div>
-      <label for="Domaines">Classes & Domaines </label>
-      <select id="Domaines" class="select">
-        <option value="" selected></option>
-        <option v-for="branche in data.module.getData(this.datalist,'cls&domn')" :key="branche">
-          {{branche}}
-        </option>
-      </select>
-    </div>
-
-
-    <div class="books">
-      <label for="Livres">Livres </label>
-      <select id="Livres" class="selectpicker" data-live-search="true"  v-model="livreselected">
-        <option v-for="branche in data.module.getData(this.datalist,'livre')" :key="branche">
-          {{branche}}
-        </option>
-      </select>
-    </div>
+        <label for="ecoleSelect">Ecoles </label>
+        <select id="ecoleSelect" class="selectSort">
+          <option value="" selected></option>
+          <option v-for="ecole in data.module.getData(this.datalist,'ecoles')" :key="ecole">
+            {{ecole}}
+          </option>
+        </select>
 
 
 
-    <button @click.prevent="submit" class="btn-success submit" >Search</button>
+        <label for="brancheSelect">Branches </label>
+        <select id="brancheSelect" class="selectSort">
+          <option value="" selected></option>
+          <option v-for="branche in data.module.getData(this.datalist,'branches')" :key="branche">
+            {{branche}}
+          </option>
+        </select>
+
+
+
+      <level-select/>
+
+
+        <label for="Domaines">Classes & Domaines </label>
+        <select id="Domaines" class="selectSort">
+          <option value="" selected></option>
+          <option v-for="branche in data.module.getData(this.datalist,'cls&domn')" :key="branche">
+            {{branche}}
+          </option>
+        </select>
+
+
+
+
+        <label for="Livres">Livres </label>
+        <select id="Livres" class="selectSort"  v-model="livreselected">
+          <option v-for="branche in data.module.getData(this.datalist,'livre')" :key="branche">
+            {{branche}}
+          </option>
+        </select>
+
+
+
+
+      <button @click.prevent="submit" class="btn-success buttonSearch" >Search</button>
+
+    </form>
 
   </div>
+
 
 </template>
 
@@ -74,10 +63,12 @@
 // @ is an alias to /src
 import {ref} from "vue";
 import sortList from "../js/data.min.js"
+import LevelSelect from "@/components/levelSelect";
 
 export default {
   name: 'HomeView',
   components: {
+    LevelSelect
 
   },
   methods : {
@@ -106,14 +97,21 @@ export default {
 }
 </script>
 
-<style scoped>
+<style >
 
-.searchbox{
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  align-content: center;
-  align-items: flex-start;
+.form {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  grid-gap: 16px;
+}
+
+.label {
+  grid-column: 1 / 2;
+}
+
+.selectSort, .buttonSearch {
+  grid-column: 2 / 3;
+  width: 10%;
 }
 
 
