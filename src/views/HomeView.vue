@@ -1,62 +1,15 @@
 <template>
   <div class="searchbox">
-
     <h1>Les Sorts :</h1>
-
-    <form class="form">
-
-
-        <label for="ecoleSelect">Ecoles </label>
-        <select id="ecoleSelect" class="selectSort">
-          <option value="" selected></option>
-          <option v-for="ecole in data.module.getData(this.datalist,'ecoles')" :key="ecole">
-            {{ecole}}
-          </option>
-        </select>
-
-
-
-        <label for="brancheSelect">Branches </label>
-        <select id="brancheSelect" class="selectSort">
-          <option value="" selected></option>
-          <option v-for="branche in data.module.getData(this.datalist,'branches')" :key="branche">
-            {{branche}}
-          </option>
-        </select>
-
-
-
-      <level-select/>
-
-
-        <label for="Domaines">Classes & Domaines </label>
-        <select id="Domaines" class="selectSort">
-          <option value="" selected></option>
-          <option v-for="branche in data.module.getData(this.datalist,'cls&domn')" :key="branche">
-            {{branche}}
-          </option>
-        </select>
-
-
-
-
-        <label for="Livres">Livres </label>
-        <select id="Livres" class="selectSort"  v-model="livreselected">
-          <option v-for="branche in data.module.getData(this.datalist,'livre')" :key="branche">
-            {{branche}}
-          </option>
-        </select>
-
-
-
-
-      <button @click.prevent="submit" class="btn-success buttonSearch" >Search</button>
-
-    </form>
-
+      <form class="form">
+        <SchoolSelect :data="data.module.getData(this.datalist,'ecoles')"/>
+        <brancheSelect :data="data.module.getData(this.datalist,'branches')"/>
+        <levelSelect :data="this.levels"/>
+        <classe-select :data="data.module.getData(this.datalist,'cls&domn')"/>
+        <bookSelect :data="data.module.getData(this.datalist,'livre')"/>
+        <button @click.prevent="submit" class="btn-success buttonSearch" >Search</button>
+      </form>
   </div>
-
-
 </template>
 
 <script>
@@ -64,10 +17,18 @@
 import {ref} from "vue";
 import sortList from "../js/data.min.js"
 import LevelSelect from "@/components/levelSelect";
+import SchoolSelect from "@/components/schoolSelect";
+import BrancheSelect from "@/components/brancheSelect";
+import BookSelect from "@/components/bookSelect";
+import ClasseSelect from "@/components/classeSelect";
 
 export default {
   name: 'HomeView',
   components: {
+    ClasseSelect,
+    BookSelect,
+    BrancheSelect,
+    SchoolSelect,
     LevelSelect
 
   },
@@ -80,6 +41,7 @@ export default {
   },
   setup (){
     const data  = require("@/data/data.js")
+    let levels = ref([{value : "0",text : "Niveau 0"},{value : "1",text : "Niveau 1"},{value : "2",text : "Niveau 2"},{value : "3",text : "Niveau 3"},{value : "4",text : "Niveau 4"},{value : "5",text : "Niveau 5"},{value : "6",text : "Niveau 6"},{value : "7",text : "Niveau 7"},{value : "8",text : "Niveau 8"},{value : "9",text : "Niveau 9"}])
 
     let datalist = ref(sortList)
     let livreselected = ref([])
@@ -90,7 +52,8 @@ export default {
     return {
       datalist,
       livreselected,
-      data
+      data,
+      levels
 
     }
   }
@@ -101,17 +64,19 @@ export default {
 
 .form {
   display: grid;
-  grid-template-columns: 200px 1fr;
+  grid-template-columns: 50% 1fr;
   grid-gap: 16px;
+  justify-items: center;
 }
 
-.label {
+.inputSelectLabel {
   grid-column: 1 / 2;
 }
 
 .selectSort, .buttonSearch {
   grid-column: 2 / 3;
-  width: 10%;
+  width: 50%;
+  align-items: center;
 }
 
 
