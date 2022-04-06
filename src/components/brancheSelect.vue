@@ -11,18 +11,6 @@
 <script>
 export default {
   name: "brancheSelect",
-  props : ['data'],
-  setup (){
-
-    return{
-
-    }
-
-  }
-
+  props : ['data']
 }
 </script>
-
-<style scoped>
-
-</style>

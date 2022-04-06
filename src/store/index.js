@@ -3,7 +3,8 @@ import {ref} from "vue";
 
 export default createStore({
   state: {
-    livreselected : ref([]),
+    bookSelected : ref(""),
+    booksAdded : ref([]),
     schoolselected : ref("")
 
 

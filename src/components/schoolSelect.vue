@@ -11,22 +11,9 @@
 <script>
 
 
-
 export default {
   name: "schoolSelect",
-  props : ['data'],
-  setup (){
-
-
-    return{
-
-    }
-
-  }
-
+  props : ['data']
 }
 </script>
 
-<style scoped>
-
-</style>

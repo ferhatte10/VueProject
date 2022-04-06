@@ -14,19 +14,6 @@
 
 export default {
   name: "levelSelect",
-  props:["data"],
-  setup (){
-
-
-    return{
-
-    }
-
-  }
-
+  props:["data"]
 }
 </script>
-
-<style scoped>
-
-</style>

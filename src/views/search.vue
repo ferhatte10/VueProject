@@ -1,12 +1,14 @@
 <template>
   <div class="search">
     <input type="text">
+    <p>{{val}}</p>
   </div>
 </template>
 <script>
-// @ is an alias to /src
+
 
 import {ref} from "vue";
+import { useStore } from 'vuex'
 
 export default {
   name: 'HomeView',
@@ -14,11 +16,12 @@ export default {
 
   },
   setup() {
-    const count = ref("")
+    const store = useStore()
 
-    // expose to template and other options API hooks
+    const val = ref(store.state.booksAdded)
+
     return {
-      count
+      val
     }
   },
 }
