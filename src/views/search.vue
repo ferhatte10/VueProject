@@ -1,7 +1,8 @@
 <template>
   <div class="search">
     <input type="text">
-    <p>{{val}}</p>
+    <p>Added : {{store.state.booksAdded}}</p>
+    <p>Available : {{store.state.booksAvailable}}</p>
   </div>
 </template>
 <script>
@@ -18,10 +19,8 @@ export default {
   setup() {
     const store = useStore()
 
-    const val = ref(store.state.booksAdded)
-
     return {
-      val
+      store
     }
   },
 }

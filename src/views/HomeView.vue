@@ -6,7 +6,8 @@
         <brancheSelect :data="data.module.getData(this.datalist,'branches')"/>
         <levelSelect :data="this.levels"/>
         <classe-select :data="data.module.getData(this.datalist,'cls&domn')"/>
-        <bookSelect :data="data.module.getData(this.datalist,'livre')"/>
+        <bookSelect :data="this.store.state.booksAvailable"/>
+
         <button @click.prevent="addbook" class="btn-success buttonSearch" >Add book</button>
       </form>
   </div>
@@ -41,14 +42,11 @@ export default {
 
   },
   setup (){
-    const store = useStore()
-    const data  = require("@/data/data.js")
+    const store = useStore() // import the store to get the global variables
+    const data  = require("@/data/data.js") // a supprimer
     let levels = ref([{value : "0",text : "Niveau 0"},{value : "1",text : "Niveau 1"},{value : "2",text : "Niveau 2"},{value : "3",text : "Niveau 3"},{value : "4",text : "Niveau 4"},{value : "5",text : "Niveau 5"},{value : "6",text : "Niveau 6"},{value : "7",text : "Niveau 7"},{value : "8",text : "Niveau 8"},{value : "9",text : "Niveau 9"}])
 
-    let datalist = ref(sortList)
-
-
-
+    let datalist = ref(sortList) // a supprimer
 
     return {
       datalist,

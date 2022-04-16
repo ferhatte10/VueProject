@@ -1,23 +1,10 @@
 <template>
-  <nav>
+  <nav class="navbar-collapse">
     <router-link to="/">Home</router-link> |
     <router-link to="/search">Research</router-link>
   </nav>
   <router-view/>
-  <ul class="background">
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-  </ul>
+  <ul class="background"><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
 </template>
 
 <style>

@@ -5,7 +5,8 @@ export default createStore({
   state: {
     bookSelected : ref(""),
     booksAdded : ref([]),
-    schoolselected : ref("")
+    schoolselected : ref(""),
+    booksAvailable : ref([])
 
 
   },

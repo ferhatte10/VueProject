@@ -1,7 +1,6 @@
 <template>
   <label for="brancheSelect" class="inputSelectLabel">Branches </label>
   <select id="brancheSelect" class="selectSort">
-    <option value="" selected></option>
     <option v-for="branche in this.data" :key="branche">
       {{branche}}
     </option>
