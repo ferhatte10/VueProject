@@ -37,6 +37,7 @@ export default {
     addbook(){
       if (!this.store.state.booksAdded.includes(this.store.state.bookSelected) && !!this.store.state.bookSelected){
         this.store.state.booksAdded.push(this.store.state.bookSelected)
+        this.store.state.booksAvailable.splice(this.store.state.booksAvailable.indexOf(this.store.state.bookSelected),1)
       }
     }
 
@@ -47,6 +48,8 @@ export default {
     let levels = ref([{value : "0",text : "Niveau 0"},{value : "1",text : "Niveau 1"},{value : "2",text : "Niveau 2"},{value : "3",text : "Niveau 3"},{value : "4",text : "Niveau 4"},{value : "5",text : "Niveau 5"},{value : "6",text : "Niveau 6"},{value : "7",text : "Niveau 7"},{value : "8",text : "Niveau 8"},{value : "9",text : "Niveau 9"}])
 
     let datalist = ref(sortList) // a supprimer
+
+
 
     return {
       datalist,
