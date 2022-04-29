@@ -1,6 +1,6 @@
 <template>
   <div class="searchbox">
-    <h1>Les Sorts :</h1>
+    <h1 class="">Les Sorts :</h1>
       <form class="form">
         <SchoolSelect :data="getSchools(this.datalist)" />
         <brancheSelect :data="getBranches(this.datalist)"/>
@@ -109,24 +109,6 @@ export default {
 </script>
 
 <style >
-
-/*.form {*/
-/*  display: grid;*/
-/*  grid-template-columns: 50% 1fr;*/
-/*  grid-gap: 16px;*/
-/*  justify-items: center;*/
-
-/*}*/
-
-/*.inputSelectLabel {*/
-/*  grid-column: 1 / 2;*/
-/*}*/
-
-/*.selectSort, .buttonSearch {*/
-/*  grid-column: 2 / 3;*/
-/*  width: 50%;*/
-/*  align-items: center;*/
-/*}*/
 
 
 </style>

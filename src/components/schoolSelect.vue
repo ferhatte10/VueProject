@@ -1,9 +1,14 @@
 <template>
-  <label for="ecoleSelect" class="inputSelectLabel">Ecoles </label>
-  <select id="ecoleSelect" class="selectSort">
-    <option v-for="ecole in this.data" :key="ecole">{{ecole}}</option>
-  </select>
-  <span><input type="checkbox"></span>
+  <div style="display: flex;">
+    <label for="ecoleSelect" class="inputSelectLabel">Ecoles </label>
+    <div class="selectSort">
+      <select id="ecoleSelect">
+        <option v-for="ecole in this.data" :key="ecole">{{ecole}}</option>
+      </select>
+      <input type="checkbox">
+    </div>
+  </div>
+
 </template>
 
 <script>
