@@ -4,6 +4,7 @@
     <router-link to="/search" class="font-medium px-3 py-2 text-slate-700 rounded-lg hover:bg-slate-100 hover:text-slate-900">Research</router-link>
   </nav>
   <router-view/>
+  <p class="credit mb-2 mt-5">&copy; Copyright - Ferhat Sn © {{new Date().getFullYear()}}</p>
 </template>
 
 <style>
@@ -28,6 +29,10 @@ nav a.router-link-exact-active {
   color: #42b983;
   text-decoration: underline;
   background-color: rgb(241 245 249 / 0.5);
+}
+.credit {
+  font-size: 0.8rem;
+  color: #adb5bd;
 }
 
 
