@@ -141,47 +141,53 @@ export default {
       let classes = this.classedatapicked;
       let books = this.booksAdded;
 
-
-      if (books.length > 0) {
-        data = data.filter(elm => {
-          return books.includes(elm[0])
-        })
-      }
-
-      if (schools.used) {
-        data = data.filter(elm => {
-          return schools.school.includes(elm[2])
-        })
-      }
-      if (branches.used) {
-        data = data.filter(elm => {
-          let branchesL = Array()
-          elm[3].forEach(branche => {
-            if(!branchesL.includes(branche)) branchesL.push(branche)
+      if (books.length>0){
+        if (books.length > 0) {
+          data = data.filter(elm => {
+            return books.includes(elm[0])
           })
-          return branchesL.includes(branches.branche)
+        }
 
-        })
-      }
-      if (levels.used && levels.level !== "") {
-        data = data.filter(elm => {
-          let levelL = Array()
-          elm[4].forEach(level => {
-            if(!levelL.includes(level[1])) levelL.push(level[1])
+        if (schools.used) {
+          data = data.filter(elm => {
+            return schools.school.includes(elm[2])
           })
-          return levelL.includes(parseInt(levels.level))
-        })
-      }
-      if (classes.used) {
-        data = data.filter(elm => {
-          let ClassesL = Array()
-          elm[4].forEach(classe => {
-            if(!ClassesL.includes(classe[0])) ClassesL.push(classe[0])
+        }
+        if (branches.used) {
+          data = data.filter(elm => {
+            let branchesL = Array()
+            elm[3].forEach(branche => {
+              if(!branchesL.includes(branche)) branchesL.push(branche)
+            })
+            return branchesL.includes(branches.branche)
+
           })
-          return ClassesL.includes(classes.classe)
-        })
+        }
+        if (levels.used && levels.level !== "") {
+          data = data.filter(elm => {
+            let levelL = Array()
+            elm[4].forEach(level => {
+              if(!levelL.includes(level[1])) levelL.push(level[1])
+            })
+            return levelL.includes(parseInt(levels.level))
+          })
+        }
+        if (classes.used) {
+          data = data.filter(elm => {
+            let ClassesL = Array()
+            elm[4].forEach(classe => {
+              if(!ClassesL.includes(classe[0])) ClassesL.push(classe[0])
+            })
+            return ClassesL.includes(classes.classe)
+          })
+        }
+        localStorage.setItem("dataFiltered", JSON.stringify(data ))
+      }else {
+        localStorage.setItem("dataFiltered", JSON.stringify([] ))
       }
-      localStorage.setItem("dataFiltered", JSON.stringify(data ))
+
+
+
     }
   },
   data(){
