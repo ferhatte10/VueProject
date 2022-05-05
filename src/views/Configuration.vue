@@ -2,25 +2,24 @@
   <h1 class="text-5xl font-normal leading-normal mt-0 mb-2 text-black-800 ">Configuration :</h1>
   <div class="md:flex md:justify-center mb-6">
     <form class="form bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-      <SchoolSelect :data="getSchools(this.datalist)" @ecoleSelected="test"/>
-      <brancheSelect :data="getBranches(this.datalist)"/>
-      <levelSelect :data="this.levels"/>
-      <classe-select :data="getClasses(datalist)" @selectedD="initclasse"/>
+      <SchoolSelect :data="getSchools(this.datalist)" @ecoleSelected="setSchool"/>
+      <brancheSelect :data="getBranches(this.datalist)" @selectedB="setBranche"/>
+      <levelSelect :data="this.levels" @selectedLevel="setLevel"/>
+      <classe-select :data="getClasses(datalist)" @selectedD="setClasse"/>
       <bookSelect :data="{dispo : this.booksDispo,added : this.booksAdded}" @selectedB="addbook" @selectedB_added="removebook"/>
-      <button @click.prevent="test" class="flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded">Set Configuration</button>
+      <button @click.prevent="SetConfigData" class="flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded">Set Configuration</button>
     </form>
   </div>
 </template>
 
 <script>
 import {ref} from "vue";
-import sortList from "../js/data.min.js"
+import sortList from "../data/data.min.js"
 import LevelSelect from "@/components/levelSelect";
 import SchoolSelect from "@/components/schoolSelect";
 import BrancheSelect from "@/components/brancheSelect";
 import BookSelect from "@/components/bookSelect";
 import ClasseSelect from "@/components/classeSelect";
-import {useStore} from "vuex";
 
 export default {
   name: 'Configuration',
@@ -75,7 +74,20 @@ export default {
         }
       }
     },
-    getClasses(data){
+    setSchool(data){
+      this.schooldatapicked = data
+    },
+    setBranche(data){
+      this.branchedatapicked = data
+    },
+    setLevel(data){
+      this.leveldatapicked = data
+    },
+    setClasse(data){
+      this.classedatapicked = data
+    },
+
+    getBranches(data){
       let Classes_Domaines = []
       data.filter(elm => {
         elm[3].forEach(Classe => {
@@ -105,7 +117,7 @@ export default {
       })
       return ecoles.sort()
     },
-    getBranches(data){
+    getClasses(data){
       let branches = []
       data.filter(elm => {
         elm[4].forEach(branche => {
@@ -116,55 +128,61 @@ export default {
       })
       return branches.sort()
     },
-    initclasse(val){
-      this.classe = val
-    },
 
     /*
     * fonction qui filtre les sort selon les filtres selectionnés
     *
     * */
-    searchdata(){
+    SetConfigData(){
       let data = sortList;
-      let schools = this.schools;
-      let branches = this.branches;
-      let levels = this.levels;
-      let classes = this.classes;
-      let books = this.books;
-      let filtered = [];
-      if (schools.length > 0) {
-        data = data.filter(elm => {
-          return schools.includes(elm[2])
-        })
-      }
-      if (branches.length > 0) {
-        data = data.filter(elm => {
-          return branches.includes(elm[4][0][0])
-        })
-      }
-      if (levels.length > 0) {
-        data = data.filter(elm => {
-          return levels.includes(elm[4][0][1])
-        })
-      }
-      if (classes.length > 0) {
-        data = data.filter(elm => {
-          return classes.includes(elm[3][0])
-        })
-      }
+      let schools = this.schooldatapicked;
+      let branches = this.branchedatapicked;
+      let levels = this.leveldatapicked;
+      let classes = this.classedatapicked;
+      let books = this.booksAdded;
+
+
       if (books.length > 0) {
         data = data.filter(elm => {
           return books.includes(elm[0])
         })
       }
-      console.log(data);
-    },
-    test(e){
-      console.log(`school: ${e.school} used: ${e.used}`)
+
+      if (schools.used) {
+        data = data.filter(elm => {
+          return schools.school.includes(elm[2])
+        })
+      }
+      if (branches.used) {
+        data = data.filter(elm => {
+          let branchesL = Array()
+          elm[3].forEach(branche => {
+            if(!branchesL.includes(branche)) branchesL.push(branche)
+          })
+          return branchesL.includes(branches.branche)
+
+        })
+      }
+      if (levels.used && levels.level !== "") {
+        data = data.filter(elm => {
+          let levelL = Array()
+          elm[4].forEach(level => {
+            if(!levelL.includes(level[1])) levelL.push(level[1])
+          })
+          return levelL.includes(parseInt(levels.level))
+        })
+      }
+      if (classes.used) {
+        data = data.filter(elm => {
+          let ClassesL = Array()
+          elm[4].forEach(classe => {
+            if(!ClassesL.includes(classe[0])) ClassesL.push(classe[0])
+          })
+          return ClassesL.includes(classes.classe)
+        })
+      }
+      localStorage.setItem("dataFiltered", JSON.stringify(data ))
     }
-
-
-
   },
   data(){
     return {
@@ -174,9 +192,11 @@ export default {
     }
   },
 
-
   setup (){
-    const store = useStore()
+    let schooldatapicked = ref({})
+    let branchedatapicked = ref({})
+    let leveldatapicked = ref({})
+    let classedatapicked = ref({})
     let levels = ref([{value : "0",text : "Niveau 0"},{value : "1",text : "Niveau 1"},{value : "2",text : "Niveau 2"},{value : "3",text : "Niveau 3"},{value : "4",text : "Niveau 4"},{value : "5",text : "Niveau 5"},{value : "6",text : "Niveau 6"},{value : "7",text : "Niveau 7"},{value : "8",text : "Niveau 8"},{value : "9",text : "Niveau 9"}])
     let classe = ref('')
     let datalist = ref(sortList)
@@ -184,9 +204,12 @@ export default {
 
 
     return {
+      branchedatapicked,
+      leveldatapicked,
+      classedatapicked,
+      schooldatapicked,
       levels,
       datalist,
-      store,
       classe,
 
 

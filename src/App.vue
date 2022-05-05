@@ -1,7 +1,7 @@
 <template>
-  <nav class="navbar-collapse">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/search">Research</router-link>
+  <nav class="flex justify-center space-x-2">
+    <router-link to="/" class="font-medium px-3 py-2 text-slate-700 rounded-lg hover:bg-slate-100 hover:text-slate-900">Configuration</router-link>
+    <router-link to="/search" class="font-medium px-3 py-2 text-slate-700 rounded-lg hover:bg-slate-100 hover:text-slate-900">Research</router-link>
   </nav>
   <router-view/>
 </template>
@@ -26,6 +26,8 @@ nav a {
 
 nav a.router-link-exact-active {
   color: #42b983;
+  text-decoration: underline;
+  background-color: rgb(241 245 249 / 0.5);
 }
 
 
